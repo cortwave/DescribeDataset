@@ -1,5 +1,1 @@
 3.9.18
-
-Using this repo I want to describe dataset as text to use it later with LLM to help LLM to understand my dataset structure. Now if folder contains more than N files it shows only first 3 files. I want to add amount of files containing in the folder near to the folder name and obviously mention that here only 3 examples of files
-
-

@@ -7,6 +7,7 @@ from typing import Dict, Union
 
 import yaml
 from fire import Fire
+from PIL import Image
 
 DIFFERENT_FILES_LIMIT = 10
 MIN_LIST_LENGTH = 3
@@ -131,6 +132,17 @@ def describe_folder(folder_path: Path) -> FolderDescription:
     return FolderDescription(content=folder_structure, total_items=total_items)
 
 
+def describe_image(file_path: Path) -> FileDescription:
+    """
+    Return a FileDescription for an image file, including its resolution.
+    """
+    try:
+        with Image.open(file_path) as img:
+            width, height = img.size
+            return FileDescription(content=f"image of resolution {width}x{height}")
+    except Exception:
+        return EmptyFileDescription()
+
 def describe_file(file_path: Path) -> FileDescription:
     """
     Return a FileDescription, analyzing file type by extension.
@@ -144,6 +156,8 @@ def describe_file(file_path: Path) -> FileDescription:
         return describe_yaml(file_path)
     elif file_extension == 'csv':
         return describe_csv(file_path)
+    elif file_extension in ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp']:
+        return describe_image(file_path)
     else:
         return EmptyFileDescription()
 

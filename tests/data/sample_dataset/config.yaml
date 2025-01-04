@@ -1,0 +1,6 @@
+name: test-dataset
+version: 1.0
+classes:
+  - car
+  - pedestrian
+  - bicycle

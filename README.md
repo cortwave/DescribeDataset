@@ -83,9 +83,47 @@ The tool has several configurable parameters:
 - `MIN_LIST_LENGTH = 3`: Minimum number of items to show when clipping large lists
 - `LIST_SIZE_THRESHOLD_FOR_MIN_LENGTH = 20`: Threshold for when to start clipping lists
 
+## Development
+
+### Setting up development environment
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/DescribeDataset.git
+cd DescribeDataset
+
+# Install development dependencies
+pip install -r requirements-dev.txt
+```
+
+### Running Tests
+
+```bash
+# Run tests with coverage report
+pytest
+
+# Run specific test file
+pytest tests/test_describer.py
+
+# Run specific test function
+pytest tests/test_describer.py::test_describe_file_image
+```
+
+### Code Style
+
+This project uses:
+- Black for code formatting
+- isort for import sorting
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+Before submitting a PR:
+1. Ensure all tests pass
+2. Add tests for new functionality
+3. Format code with Black
+4. Sort imports with isort
 
 ## License
 

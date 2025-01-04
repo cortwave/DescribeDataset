@@ -1,0 +1,10 @@
+[project]
+name = "describedataset"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.9.18"
+dependencies = [
+    "fire>=0.7.0",
+    "pyyaml>=6.0.2",
+]

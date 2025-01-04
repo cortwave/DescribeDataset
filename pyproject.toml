@@ -6,5 +6,6 @@ readme = "README.md"
 requires-python = ">=3.9.18"
 dependencies = [
     "fire>=0.7.0",
+    "pillow>=11.1.0",
     "pyyaml>=6.0.2",
 ]

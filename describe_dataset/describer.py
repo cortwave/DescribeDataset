@@ -29,6 +29,7 @@ class FolderDescription:
     where 'content' is a dict of sub-items (files or folders).
     """
     content: Dict[str, Union[FileDescription, FolderDescription]]
+    total_items: int = 0
     object_type: str = "folder"
 
 
@@ -84,6 +85,11 @@ def _describe_folder_recursive(folder_desc: FolderDescription, indent_level: int
     """
     indent = "  " * indent_level
     output = ""
+    
+    # Show total items count if some items were clipped
+    if folder_desc.total_items > len(folder_desc.content):
+        output += f"{indent}Total items in folder: {folder_desc.total_items} (showing first {len(folder_desc.content)})\n"
+    
     for name, item_desc in folder_desc.content.items():
         output += f"{indent}- {name} ({item_desc.object_type})\n"
         if item_desc.object_type == "folder":
@@ -111,6 +117,7 @@ def describe_folder(folder_path: Path) -> FolderDescription:
     """
     folder_structure: Dict[str, Union[FileDescription, FolderDescription]] = {}
     folder_content = sorted(folder_path.iterdir())
+    total_items = len([x for x in folder_content if x.name != '.DS_Store'])
     folder_content = _clip_list(folder_content)
 
     for content in folder_content:
@@ -121,7 +128,7 @@ def describe_folder(folder_path: Path) -> FolderDescription:
         elif content.is_dir():
             folder_structure[content.name] = describe_folder(content)
 
-    return FolderDescription(content=folder_structure)
+    return FolderDescription(content=folder_structure, total_items=total_items)
 
 
 def describe_file(file_path: Path) -> FileDescription:

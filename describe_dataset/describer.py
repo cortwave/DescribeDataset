@@ -143,6 +143,7 @@ def describe_image(file_path: Path) -> FileDescription:
     except Exception:
         return EmptyFileDescription()
 
+
 def describe_file(file_path: Path) -> FileDescription:
     """
     Return a FileDescription, analyzing file type by extension.
@@ -152,6 +153,8 @@ def describe_file(file_path: Path) -> FileDescription:
         return describe_txt(file_path)
     elif file_extension == 'json':
         return describe_json(file_path)
+    elif file_extension == 'jsonl':
+        return describe_jsonl(file_path)
     elif file_extension in ['yaml', 'yml']:
         return describe_yaml(file_path)
     elif file_extension == 'csv':
@@ -173,6 +176,16 @@ def describe_json(file_path: Path) -> FileDescription:
         content = json.load(f)
     content = _clip_all_lists_in_dict(content)
     return FileDescription(content=content)
+
+
+def describe_jsonl(file_path: Path) -> FileDescription:
+    with open(file_path, 'r', encoding='utf-8') as f:
+        lines = f.read().split('\n')
+    lines = _clip_list(lines)
+    lines = [json.loads(line) for line in lines if line.strip()]
+    lines = [_clip_all_lists_in_dict(line) for line in lines]
+    clipped_content = '\n'.join([json.dumps(line, indent=4) for line in lines])
+    return FileDescription(content=clipped_content)
 
 
 def describe_yaml(file_path: Path) -> FileDescription:

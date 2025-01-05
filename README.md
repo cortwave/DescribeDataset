@@ -7,7 +7,7 @@ A Python tool for generating human-readable descriptions of dataset structures. 
 - 📁 Recursive folder structure exploration
 - 📊 Support for multiple file formats:
   - Text files (`.txt`)
-  - JSON files (`.json`)
+  - JSON files (`.json`, `.jsonl`)
   - YAML files (`.yaml`, `.yml`)
   - CSV files (`.csv`)
   - Images (`.jpg`, `.jpeg`, `.png`, `.gif`, `.bmp`, `.webp`)
